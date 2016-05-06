@@ -1,0 +1,20 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-3"> </div>
+    <div class="col-md-6" style="background-color: #f9f9f9;">
+    <legend>Create new question</legend>
+      <%= form_for(@question) do |f| %>
+
+        <div class="form-group"><%= f.label :title %></div>
+        <div class="form-group"><%= f.text_area :title, size: "60x1" %></div>
+
+        <div class="form-group"><%= f.label :description %></div>
+        <div class="form-group"><%= f.text_area :description , size: "60x5" %></div>
+
+        <%= f.submit "Create!", class: "btn btn-large btn-primary" %>
+        <%= button_to "Back", {controller: "questions", action: "index"}, {:class => "btn btn-link"} %>
+      <% end %>
+    </div>
+    <div class="col-md-3"> </div>
+  </div>
+</div>

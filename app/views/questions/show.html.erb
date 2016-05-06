@@ -1,0 +1,17 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-3"> </div>
+    <div class="col-md-6" style="background-color: #f9f9f9;">
+      <legend><%= @question.title %></legend>
+      <div class="well">
+        <p><%= @question.description %></p>
+      </div>
+      <row >
+      <%= link_to "Back", root_path, :class => "btn btn-link", :style => "float: left;" %>
+      <%= link_to "Comment", root_path, :class => "btn btn-primary", :style => "float: right;margin: 5px;"%>
+      <%= link_to "Answer!", root_path, :class => "btn btn-success btn-lg", :style => "float: right;margin: 5px;"%>
+      </row>
+    </div>
+    <div class="col-md-3"> </div>
+  </div>
+</div>

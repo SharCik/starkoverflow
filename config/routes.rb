@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+
+  match '/rate_up',  to: 'questions#rate_up',            via: 'get'
+  match '/rate_down',  to: 'questions#rate_down',            via: 'get'
   resources :questions 
   root 'questions#index'
   # The priority is based upon order of creation: first created -> highest priority.
