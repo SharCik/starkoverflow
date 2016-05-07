@@ -15,7 +15,8 @@ class QuestionsController < ApplicationController
 	end
 
 	def show
-		@question = Question.find_by(params[:id])
+		@question = Question.find(params[:id])
+		@answers = Answer.where(question_id: @question.id)
 	end
 
 	def edit

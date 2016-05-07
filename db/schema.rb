@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506092701) do
+ActiveRecord::Schema.define(version: 20160506102554) do
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.text     "answer"
+    t.integer  "rating",      default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "questions", force: :cascade do |t|
     t.string   "title"

@@ -12,13 +12,19 @@
 				  <% @questions.each do |question| %>
 				  <tbody>
 				    <tr style="height: 60px;">
-				      <td style="width: 10%;"><%= question.id %><td>
-				      <td style="width: 80%;"><%= link_to question.title, question_path(question.id) %></td>
+				      <td style="width: 10%;"><h4><%= question.id %></h4><td>
+				      <td style="width: 80%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
 				      <td style="width: 5%;">
 				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rate_up_path, :method => :get %></p>
 				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rate_down_path, :method => :get %></p>
 				      </td>
-				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px"><%= question.rating %></h2></td>
+				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px">
+				      	<% if question.rating < 0 %>
+				      		<p style="color: red;"><%= question.rating %></p>
+				      	<% else %>
+				      		<p style="color: green;"><%= question.rating %></p>
+				      	<% end %>	
+				      </h2></td>
 				    </tr>
 				  </tbody>
 				  <% end %>
