@@ -9,7 +9,9 @@ class QuestionsController < ApplicationController
 	end
 
 	def create 
+		user = current_user
 		@question = Question.new(question_params)
+		@question.user_id = user.id
 		@question.save
 		redirect_to root_path
 	end

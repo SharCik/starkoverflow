@@ -9,6 +9,9 @@ before_create :create_remember_token
                     uniqueness: { case_sensitive: false }
   has_secure_password
 
+  has_many :answers
+  has_many :questions
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end

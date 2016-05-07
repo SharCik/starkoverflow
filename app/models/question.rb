@@ -3,4 +3,5 @@ class Question < ActiveRecord::Base
 	validates :description, presence: true
 
 	has_many :answers
+	belongs_to :users, :foreign_key => :user_id
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   match '/rate_up',  to: 'questions#rate_up',            via: 'get'
   match '/rate_down',  to: 'questions#rate_down',            via: 'get'
+  match '/profile',  to: 'users#profile',            via: 'get'
   resources :users
   resources :questions 
   resources :answers 

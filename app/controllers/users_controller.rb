@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile 
+  	@user = current_user
+  	@questions = Question.where(user_id: @user.id)
+  end
+
   def user_params
   	params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end 
