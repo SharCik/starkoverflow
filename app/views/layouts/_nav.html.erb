@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Starkoverflow</a>
+      <%= link_to "Starkoverflow", questions_path, class: "navbar-brand"%>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -18,8 +18,13 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Sign in</a></li>
+      <% if !signed_in? %>
+        <li><%= link_to "Sign in", signin_path %></li>
         <li><%= link_to "Sign up!", new_user_path %></li>
+      <% else %>
+        <li><%= link_to "Profile", "#" %></li>
+        <li><%= link_to "Sign out", signout_path , method: "delete" %></li>
+      <% end %>
       </ul>
     </div>
   </div>
