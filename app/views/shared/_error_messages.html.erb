@@ -1,0 +1,17 @@
+<% if @user.errors.any? %>
+<ul>
+  <div id="error_explanation">
+    
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      </br>
+      <% err = 1 %>
+      <% @user.errors.full_messages.each do |msg| %>
+        <%= err %>) <%= msg %> </br>
+        <% err += 1%>
+      <% end %>
+    </div>
+         
+  </div>
+<% end %>
