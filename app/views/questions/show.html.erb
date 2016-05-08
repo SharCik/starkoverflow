@@ -7,7 +7,7 @@
         <p><%= @question.description %></p>
       </div>
       <row >
-      <%= link_to "Back", root_path, :class => "btn btn-link", :style => "float: left;" %>
+      <%= link_to "Back to questions", root_path, :class => "btn btn-link", :style => "float: left;" %>
       <%= link_to "Comment", root_path, :class => "btn btn-primary", :style => "float: right;margin: 5px;"%>
       <%= link_to "Answer!", new_answer_path(@question.id), :class => "btn btn-success btn-lg", :style => "float: right;margin: 5px;"%>
       </row>
@@ -16,7 +16,12 @@
           <h3>No posts yet</h3>
         <% else %>
           <% @answers.each do |ans|%>
-            <div class="well"><p><%= ans.answer %></p></div>
+            <% if !(ans.user_id == nil) %>
+              <% user = User.find(ans.user_id) %>
+              <div class="well"><p><%= user.name.capitalize %></p><p><%= ans.answer %></p></div>
+            <% else %>
+              <div class="well"><p><%= ans.answer %></p></div>
+            <% end %>
           <% end %>
         <% end %> 
       </div>

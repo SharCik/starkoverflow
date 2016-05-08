@@ -43,12 +43,16 @@
   <div class="row">
   <legend>Your questions:</legend>
   <% @questions.each do |question|%>
-    <div class="well"><h4 style="color: green;"><%= question.title %></h4></br><p><%= question.description %></p></div>
+    <div class="well" style="height: 100px;"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= question.description %></p></div>
   <% end %>
 </div>
   </div>
   <div class="col-md-4 col-md-4">
     <legend>Your answers:</legend>
+    <% @answers.each do |answer|%>
+      <% question = Question.find(answer.question_id) %>
+      <div class="well" style="height: 100px;"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= answer.answer %></p>
+    <% end %>
   </div>
   <div class="col-md-2 col-md-2">
     <div></div>
