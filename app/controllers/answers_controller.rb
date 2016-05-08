@@ -1,18 +1,23 @@
 class AnswersController < ApplicationController
-
+	@@question ||= nil
 	def new
-		@question = Question.find_by(params[:id])
-		@answer = Answer.new
+		if signed_in?
+			@question = Question.find(params[:quest])
+			@@question = @question.id
+			@answer = Answer.new
+		else
+			flash[:alert] = "Sign in,please!"
+			redirect_to root_path
+		end
 	end
 
 	def create
 		user = current_user
-		@question = Question.find_by(params[:id])
 		@answer = Answer.new(answer_params)
-		@answer.question_id = @question.id
 		@answer.user_id = user.id
+		@answer.question_id = @@question
 		@answer.save!
-		redirect_to question_path(@question)
+		redirect_to question_path(@@question)
 	end
 
 
@@ -21,4 +26,5 @@ class AnswersController < ApplicationController
 	def answer_params
 		params.require(:answer).permit(:answer)
 	end
+
 end

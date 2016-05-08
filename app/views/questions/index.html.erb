@@ -2,8 +2,11 @@
   <div class="row">
     <div class="col-md-2"> </div>
     	<div class="col-md-8" style="background-color: #f9f9f9;padding: 0px;">
+    			<% flash.each do |key, value| %>
+  					<div class="alert alert-<%= key %>" style="text-align: center;"><%= value %></div>
+				<% end %>
     		<div class="new" style="background-color: #fff;height: 45px;">
-    		<%= button_to "New question" ,new_question_path ,:class => "btn btn-primary", :method => :get  %></div>
+    		<%= button_to "New question" ,new_question_path ,:class => "btn sharp", :method => :get  %></div>
     		<div class="main">
 				<table class="table table-striped table-hover ">
 				  <thead>
@@ -15,8 +18,8 @@
 				      <td style="width: 10%;"><h4><%= question.id %></h4><td>
 				      <td style="width: 80%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
 				      <td style="width: 5%;">
-				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rate_up_path, :method => :get %></p>
-				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rate_down_path, :method => :get %></p>
+				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rate_up_path(:quest => question.id), :method => :get %></p>
+				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rate_down_path(:quest => question.id), :method => :get %></p>
 				      </td>
 				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px">
 				      	<% if question.rating < 0 %>

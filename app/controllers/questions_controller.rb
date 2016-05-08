@@ -1,11 +1,16 @@
 class QuestionsController < ApplicationController
 	
 	def index
-		@questions =  Question.all 
+		@questions =  Question.last('10').reverse
 	end 
 
 	def new 
-		@question = Question.new
+		if signed_in?
+			@question = Question.new
+		else
+			flash[:alert] = "Sign in,please!"
+			redirect_to root_path
+		end
 	end
 
 	def create 
@@ -27,17 +32,27 @@ class QuestionsController < ApplicationController
 	end 
 
 	def rate_up
-		@question = Question.find_by(params[:id])
-		@question.rating = @question.rating + 1
-		@question.save
-		redirect_to root_path
+		if signed_in?
+			@question = Question.find(params[:quest])
+			@question.rating = @question.rating + 1
+			@question.save
+			redirect_to root_path
+		else
+			flash[:alert] = "Sign in,please!"
+			redirect_to root_path
+		end
 	end
 
 	def rate_down
-		@question = Question.find_by(params[:id])
-		@question.rating = @question.rating - 1
-		@question.save
-		redirect_to root_path
+		if signed_in?
+			@question = Question.find(params[:quest])
+			@question.rating = @question.rating - 1
+			@question.save
+			redirect_to root_path
+		else
+			flash[:alert] = "Sign in,please!"
+			redirect_to root_path
+		end
 	end
 
 

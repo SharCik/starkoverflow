@@ -12,7 +12,7 @@
         <div class="form-group"><%= f.text_area :description , size: "60x5" %></div>
 
         <%= f.submit "Create!", class: "btn btn-large btn-primary" %>
-        <%= button_to "Back", {controller: "questions", action: "index"}, {:class => "btn btn-link"} %>
+        <%= link_to "Back", questions_path, {:class => "btn btn-link"} %>
       <% end %>
     </div>
     <div class="col-md-3"> </div>

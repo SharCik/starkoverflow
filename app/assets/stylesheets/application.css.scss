@@ -35,3 +35,14 @@
   }
 }
 
+.btn.sharp {
+  border-radius:0;
+  background-color: #33b5e5;
+  color: white;
+  width: 100%;
+  height: 50px;
+}
+
+.btn:hover, .btn:focus, .btn:active{
+    background: #33b5e5;
+}

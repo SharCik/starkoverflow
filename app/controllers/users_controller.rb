@@ -19,8 +19,8 @@ class UsersController < ApplicationController
 
   def profile 
   	@user = current_user
-  	@questions = Question.where(user_id: @user.id)
-  	@answers = Answer.where(user_id: @user.id)
+  	@questions = Question.where(user_id: @user.id).last('5').reverse
+  	@answers = Answer.where(user_id: @user.id).last('5').reverse
   end
 
   def user_params
