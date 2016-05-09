@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
 	def show
 		@question = Question.find(params[:id])
 		@answers = Answer.where(question_id: @question.id)
+		@comments = Comment.where(question_id: @question.id)
 		@users= User.all
 	end
 
