@@ -1,0 +1,27 @@
+  <p id="notice"><%= notice %></p>
+  <div class="container" style="width: 100%"> 
+    <%= form_for @user, html: { multipart: true } do |f| %>
+
+     
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :country %><br>
+        <%= f.text_field :country %>
+      </div>
+
+      <div class="field" style="padding-top: 10px;">
+        <%= f.label :picture %><br>
+        <%= f.file_field :picture %>
+      </div>
+
+      <div class="actions" style="padding-top: 10px;">
+        <%= f.submit  %>
+      </div>
+    <% end %>
+  </div>
+
+

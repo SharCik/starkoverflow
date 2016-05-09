@@ -7,6 +7,21 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
   end
 
+  def edit
+      @user = current_user
+  end
+
+  def update
+    @user = current_user  
+      if @user.update!(user_params)
+        flash[:notice] = "User updated."
+        redirect_to profile_path
+      else
+        flash[:error] = "Could not update user."
+        render :edit
+      end
+  end
+
   def create
     @user = User.new(user_params)    
     if @user.save
@@ -24,6 +39,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  	params.require(:user).permit(:name, :email, :password, :password_confirmation, :country, :picture)
   end 
 end

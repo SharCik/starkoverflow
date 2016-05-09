@@ -7,11 +7,9 @@
 
 
         <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object dp img-circle" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSEWK8Qd-GnnSpbp_tvCqhgyPYWfQ1dCeyyG80a8PxJAgUHuKQlwiIIGQ" style="width: 100px;height:100px;">
-            </a>
+            <%= link_to image_tag(@user.picture.thumb.url) , "#"%>
             <div class="media-body">
-                <h4 class="media-heading"> <%= @user.name.capitalize! %><small> India</small></h4>
+                <h4><%=  @user.name %>     <small> <%= @user.country %></small></h4>
                 <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
                 <hr style="margin:8px auto">
 
@@ -28,7 +26,10 @@
 </div>
   </div>
   <div class="col-md-4 col-md-4">
-    <div></div>
+
+  <% if edit_user_path(@user) %>
+  	<%= render "users/edit" %>
+  <% end %>
   </div>
   <div class="col-md-2 col-md-2">
     <div></div>

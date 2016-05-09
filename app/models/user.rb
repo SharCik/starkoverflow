@@ -12,6 +12,8 @@ before_create :create_remember_token
   has_many :answers
   has_many :questions
 
+  mount_uploader :picture, PictureUploader
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
