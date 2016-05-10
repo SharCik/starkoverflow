@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509155157) do
+ActiveRecord::Schema.define(version: 20160510073011) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160509155157) do
     t.string   "remember_token"
     t.string   "country"
     t.string   "picture"
+    t.string   "job"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

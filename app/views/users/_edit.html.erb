@@ -1,27 +1,42 @@
-  <p id="notice"><%= notice %></p>
-  <div class="container" style="width: 100%"> 
-    <%= form_for @user, html: { multipart: true } do |f| %>
+<row style="padding: 0px;">
+  <div class="col-sm-6" style="padding: 0px; height:200px;">
+    <div class="container" style="width: 100%"> 
+      <%= form_for @user, html: { multipart: true } do |f| %>
 
-     
-      <div class="field">
-        <%= f.label :name %><br>
-        <%= f.text_field :name %>
-      </div>
+       
+        <div class="field">
+          <%= f.label :name %><br>
+          <%= f.text_field :name %>
+        </div>
 
-      <div class="field">
-        <%= f.label :country %><br>
-        <%= f.text_field :country %>
-      </div>
+        <div class="field">
+          <%= f.label :country %><br>
+          <%= f.text_field :country %>
+        </div>
 
-      <div class="field" style="padding-top: 10px;">
-        <%= f.label :picture %><br>
-        <%= f.file_field :picture %>
-      </div>
-
-      <div class="actions" style="padding-top: 10px;">
-        <%= f.submit  %>
-      </div>
-    <% end %>
+        <div class="field" style="padding-top: 10px;">
+          <%= f.label :picture %><br>
+          <%= f.file_field :picture %>
+        </div>
+    </div>
   </div>
+  <div class="col-sm-6" style="padding: 0px;height:200px;">
+        <div class="field" style="padding-top: 0px;">
+          <%= f.label :job %><br>
+          <%= f.text_field :job %>
+        </div>
+        <div class="field">
+        <p style="font-weight:bold;">Tags:</p>
+        </div>
+
+  </div>
+</row>
+<row style="padding: 0px; height: 25px;text-align: center;">
+    <div class="actions" style="padding-top: 10px;">
+      <%= f.submit  %>
+    </div>
+  <% end %>
+</row>
+
 
 

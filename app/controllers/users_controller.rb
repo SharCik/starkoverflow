@@ -3,9 +3,6 @@ class UsersController < ApplicationController
   	@user = User.new
   end
 
-  def show
-  	@user = User.find(params[:id])
-  end
 
   def edit
       @user = current_user
@@ -38,7 +35,13 @@ class UsersController < ApplicationController
   	@answers = Answer.where(user_id: @user.id).last('5').reverse
   end
 
+  def show 
+    @user = User.find(params[:user])
+    @questions = Question.where(user_id: @user.id).last('5').reverse
+    @answers = Answer.where(user_id: @user.id).last('5').reverse
+  end
+
   def user_params
-  	params.require(:user).permit(:name, :email, :password, :password_confirmation, :country, :picture)
+  	params.require(:user).permit(:name, :email, :password, :password_confirmation, :country, :job, :picture)
   end 
 end

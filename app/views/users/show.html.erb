@@ -2,15 +2,15 @@
   <div class="col-md-1 col-md-2">
     <div></div>
   </div>
-  <div class="col-md-4 col-md-4">
-  <div class="row" style="height: 230px;">
+  <div class="col-md-4 col-md-4" style="padding-left: 20px;">
+  <div class="row">
 
 
         <div class="media">
             <%= link_to image_tag(@user.picture.thumb.url) , "#"%>
             <div class="media-body">
                 <h4><%=  @user.name %>     <small> <%= @user.country %></small></h4>
-                <h5><%= @user.job %></a></h5>
+                <h5><%= @user.job %></h5>
                 <hr style="margin:8px auto">
 
                 <span class="label label-default">HTML5/CSS3</span>
@@ -25,11 +25,8 @@
 
 </div>
   </div>
-  <div class="col-md-4 col-md-4" style="padding: 0px;">
+  <div class="col-md-4 col-md-4">
 
-  <% if edit_user_path(@user) %>
-  	<%= render "users/edit" %>
-  <% end %>
   </div>
   <div class="col-md-2 col-md-2">
     <div></div>

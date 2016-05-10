@@ -21,7 +21,11 @@
                 <% user = User.find(comment.user_id) %>
               <div class="col-sm-2" style="padding: 0px;">
                 <div class="thumbnail" style="height: 45px;width: 45px;">
+                <% if user.picture == nil %>
                   <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                <% else %>
+                  <%= link_to image_tag(user.picture.mini.url) , user_path(:user => user.id) , class:"img-responsive user-photo"%>
+                <% end %>
                 </div><!-- /thumbnail -->
               </div><!-- /col-sm-1 -->
               <div class="col-sm-10" style="padding: 0px;">
@@ -52,7 +56,7 @@
           <% @answers.each do |ans|%>
             <% if !(ans.user_id == nil) %>
               <% user = User.find(ans.user_id) %>
-              <div class="well"><p><%=link_to user.name.capitalize, "#" %></p><p><%= ans.answer %></p></div>
+              <div class="well"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= ans.answer %></p></div>
             <% else %>
               <div class="well"><p><%= ans.answer %></p></div>
             <% end %>
