@@ -31,7 +31,7 @@
               <div class="col-sm-10" style="padding: 0px;">
                 <div class="panel panel-default">
                   <div class="panel-heading" style="padding: 5px 10px 5px 10px;">
-                    <strong><%=link_to user.name.capitalize, "#" %></strong> <span class="text-muted" style="float: right;"><%="("+comment.created_at.strftime("%H:%M")+") " + comment.created_at.strftime("%d %b. %Y") %></span>
+                    <strong><%=link_to user.name.capitalize,  user_path(:user => user.id) %></strong> <span class="text-muted" style="float: right;"><%="("+comment.created_at.strftime("%H:%M")+") " + comment.created_at.strftime("%d %b. %Y") %></span>
                   </div>
                   <div class="panel-body" style="padding: 5px 5px 5px 5px;">
                     <%= comment.text %>

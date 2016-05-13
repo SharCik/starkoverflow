@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 		@comment = Comment.new
 	else
 		flash[:alert] = "Sign in,please!"
-		redirect_to question_path(@@question)
+		redirect_to root_path
 	end
   end
 

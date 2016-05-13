@@ -9,14 +9,15 @@
     		<%= button_to "New question" ,new_question_path ,:class => "btn sharp", :method => :get  %></div>
     		<div class="main">
 				<table class="table table-striped table-hover ">
-				  <thead>
-				    <tr><h3>All questions</h3></tr>
-				  </thead>
 				  <% @questions.each do |question| %>
 				  <tbody>
 				    <tr style="height: 60px;">
-				      <td style="width: 10%;"><h4><%= question.id %></h4><td>
-				      <td style="width: 80%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
+				      <td style="width: 10%;text-align:center;">
+				      	<p>Answers</p>
+				      	<h4><%= @answers.where(question_id: question.id).count %></h4>
+				      </td>
+				      <td style="width: 10%;text-align:center;"><h4><%= question.id %></h4><td>
+				      <td style="width: 70%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
 				      <td style="width: 5%;">
 				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rate_up_path(:quest => question.id), :method => :get %></p>
 				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rate_down_path(:quest => question.id), :method => :get %></p>

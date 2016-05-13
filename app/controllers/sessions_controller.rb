@@ -6,17 +6,21 @@ class SessionsController < ApplicationController
 
 	def create 
 		  user = User.find_by(email: params[:session][:email].downcase)
-  		  if user && user.authenticate(params[:session][:password])
-            sign_in user
-      		redirect_to questions_path
-          else
-            flash.now[:error] = 'Invalid password or email!' # Not quite right!
-     		render 'new'
-          end
+
+		  if user && user.authenticate(params[:session][:password])
+        login(user)
+
+    		redirect_to questions_path
+      else
+        flash.now[:error] = 'Invalid password or email!' # Not quite right!
+
+   		  render 'new'
+      end
 	end
 
   def destroy
-    sign_out
+    logout
+
     redirect_to root_url
   end
 end

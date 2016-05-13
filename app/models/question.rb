@@ -4,4 +4,8 @@ class Question < ActiveRecord::Base
 
 	has_many :answers
 	belongs_to :users, :foreign_key => :user_id
+
+	def self.search(search)
+		where("title LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
+	end
 end
