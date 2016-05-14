@@ -7,8 +7,7 @@ Rails.application.routes.draw do
 
   get 'users/new'
 
-  match '/rate_up',  to: 'questions#rate_up',            via: 'get'
-  match '/rate_down',  to: 'questions#rate_down',            via: 'get'
+  match '/rating',  to: 'question_votes#create',            via: 'get'
   match '/profile',  to: 'users#profile',            via: 'get'
   resources :comments
   resources :users

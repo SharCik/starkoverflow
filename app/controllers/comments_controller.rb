@@ -2,23 +2,25 @@ class CommentsController < ApplicationController
   @@question ||= nil
 
   def new
-	if signed_in?
-		@question = Question.find(params[:quest])
-		@@question = @question.id
-		@comment = Comment.new
-	else
-		flash[:alert] = "Sign in,please!"
-		redirect_to root_path
-	end
+		if signed_in?
+			@question = Question.find(params[:quest])
+			@@question = @question.id
+			@comment = Comment.new
+		else
+			flash[:alert] = "Sign in,please!"
+
+			redirect_to root_path
+		end
   end
 
   def create
-	user = current_user
-	@comment = Comment.new(comment_params)
-	@comment.user_id = user.id
-	@comment.question_id = @@question
-	@comment.save!
-	redirect_to question_path(@@question)
+		user = current_user
+		@comment = Comment.new(comment_params)
+		@comment.user_id = user.id
+		@comment.question_id = @@question
+		@comment.save!
+		
+		redirect_to question_path(@@question)
   end
 
   private 

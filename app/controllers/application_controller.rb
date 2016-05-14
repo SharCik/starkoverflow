@@ -4,9 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   #include SessionsHelper
 
-  helper_method :signed_in?, :current_user
+  helper_method :signed_in?, :current_user, :count_rate
 
   private
+
+  def count_rate(id)
+    @question = Question.find(id)
+    QuestionVote.all.where(question_id: @question.id, direction: true).size - QuestionVote.all.where(question_id: @question.id, direction: false).size 
+  end
 
   def login(user)
   	session[:user_id] = user.id

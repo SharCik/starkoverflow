@@ -1,5 +1,4 @@
 class QuestionsController < ApplicationController
-  @@questions_with_rate ||= []
   
   before_action :authenticate, only: [:new, :rate_up, :rate_down]
 
@@ -38,30 +37,6 @@ class QuestionsController < ApplicationController
     @question = Question.find_by(:id)
   end 
 
-  def rate_up
-    @question = Question.find(params[:quest])
-    if !@@questions_with_rate.include?(@question.id)
-      @question.rating = @question.rating + 1
-      @question.save
-      @@questions_with_rate << @question.id
-      redirect_to root_path
-    else
-      redirect_to root_path
-    end
-  end
-
-  def rate_down
-    @question = Question.find(params[:quest])
-    if !@@questions_with_rate.include?(@question.id)
-      @question = Question.find(params[:quest])
-      @question.rating = @question.rating - 1
-      @question.save
-      @@questions_with_rate << @question.id
-      redirect_to root_path
-    else
-      redirect_to root_path
-    end
-  end
 
 
   private

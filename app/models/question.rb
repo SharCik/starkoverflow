@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
 	validates :description, presence: true
 
 	has_many :answers
+	has_many :votes
 	belongs_to :users, :foreign_key => :user_id
 
 	def self.search(search)

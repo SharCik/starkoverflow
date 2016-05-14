@@ -19,15 +19,10 @@
 				      <td style="width: 10%;text-align:center;"><h4><%= question.id %></h4><td>
 				      <td style="width: 70%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
 				      <td style="width: 5%;">
-				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rate_up_path(:quest => question.id), :method => :get %></p>
-				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rate_down_path(:quest => question.id), :method => :get %></p>
+				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rating_path(:quest => question.id, :direct => true), :method => :get %></p>
+				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rating_path(:quest => question.id, :direct => false), :method => :get %></p>
 				      </td>
-				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px">
-				      	<% if question.rating < 0 %>
-				      		<p style="color: red;"><%= question.rating %></p>
-				      	<% else %>
-				      		<p style="color: green;"><%= question.rating %></p>
-				      	<% end %>	
+				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px; text-align:center;"><h2>	<%= count_rate(question.id)%>
 				      </h2></td>
 				    </tr>
 				  </tbody>
