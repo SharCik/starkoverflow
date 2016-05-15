@@ -7,6 +7,6 @@ class Question < ActiveRecord::Base
 	belongs_to :users, :foreign_key => :user_id
 
 	def self.search(search)
-		where("title LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
+		where("title ILIKE ? OR description ILIKE ?", "%#{search}%", "%#{search}%")
 	end
 end

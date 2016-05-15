@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160513184914) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
     t.text     "answer"
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20160513184914) do
     t.string   "job"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end
