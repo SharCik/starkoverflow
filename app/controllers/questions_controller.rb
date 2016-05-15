@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
 
   def index
     @answers = Answer.all 
+    @views = View.all
     if params[:search]
       @questions =Question.search(params[:search])
 
@@ -31,6 +32,8 @@ class QuestionsController < ApplicationController
     @answers = Answer.where(question_id: @question.id)
     @comments = Comment.where(question_id: @question.id)
     @users= User.all
+    view = View.new(user_id: current_user.id, question_id: @question.id)
+    view.save! if view.valid?
   end
 
   def edit
