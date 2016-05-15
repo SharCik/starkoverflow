@@ -32,6 +32,8 @@ class QuestionsController < ApplicationController
     @answers = Answer.where(question_id: @question.id)
     @comments = Comment.where(question_id: @question.id)
     @users= User.all
+    @star = Star.find(@question.id)
+    @star = @star.answer_id
     view = View.new(user_id: current_user.id, question_id: @question.id)
     view.save! if view.valid?
   end
@@ -40,6 +42,14 @@ class QuestionsController < ApplicationController
     @question = Question.find_by(:id)
   end 
 
+  def make_a_star 
+    question = Question.find(params[:quest])
+    answer = Answer.find(params[:ans])
+    star = Star.new(user_id: question.user_id, question_id: question.id, answer_id: answer.id)
+    star.save! if star.valid? and star.user_id == current_user.id
+
+    redirect_to question_path(question.id)
+  end
 
 
   private

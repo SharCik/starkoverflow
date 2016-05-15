@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
 	has_many :answers
 	has_many :votes
 	has_many :views
+	has_one :star
 	belongs_to :users, :foreign_key => :user_id
 
 	def self.search(search)

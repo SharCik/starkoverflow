@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
 			@answer = Answer.new
 		else
 			flash[:alert] = "Sign in,please!"
+
 			redirect_to root_path
 		end
 	end
@@ -17,6 +18,7 @@ class AnswersController < ApplicationController
 		@answer.user_id = user.id
 		@answer.question_id = @@question
 		@answer.save!
+
 		redirect_to question_path(@@question)
 	end
 

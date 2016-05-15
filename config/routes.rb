@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   match '/rating',  to: 'question_votes#create',            via: 'get'
   match '/profile',  to: 'users#profile',            via: 'get'
+  match '/make_a_star',  to: 'questions#make_a_star',            via: 'get'
   resources :comments
   resources :users
   resources :questions 
