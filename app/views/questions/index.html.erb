@@ -17,10 +17,14 @@
 				      	<h4><%= @answers.where(question_id: question.id).count %></h4>
 				      </td>
 				      <td style="width: 10%;text-align:center;">
+				      	<p>Votes</p>
+				      	<h4><%= question.count %></h4>
+				      </td>
+				      <td style="width: 10%;text-align:center;">
 				      	<p>Views</p>
 				      	<h4><%= @views.where(question_id: question.id).count %></h4>
-				      <td>
-				      <td style="width: 70%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
+				      </td>
+				      <td style="width: 60%;"><h4><%= link_to question.title, question_path(question) %></h4></td>
 				      <td style="width: 5%;">
 				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rating_path(:quest => question.id, :direct => true), :method => :get %></p>
 				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rating_path(:quest => question.id, :direct => false), :method => :get %></p>

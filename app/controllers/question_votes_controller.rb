@@ -9,7 +9,11 @@ class QuestionVotesController < ApplicationController
 			@vote.user_id = user.id
 			@vote.question_id = @question.id
 			@vote.direction = params[:direct]
-			@vote.save! if @vote.valid?
+			if @vote.valid?
+				@vote.save!
+				@question.count += 1
+				@question.save!
+			end
 		end
 
 		redirect_to questions_path
