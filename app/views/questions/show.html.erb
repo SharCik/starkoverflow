@@ -9,7 +9,7 @@
       <row >
       <%= link_to "Back to questions", root_path, :class => "btn btn-link", :style => "float: left;" %>
       <%= link_to "Comment", new_comment_path(:quest => @question.id), :class => "btn btn-primary", :style => "float: right;margin: 5px;"%>
-      <%= link_to "Answer!", new_answer_path(:quest => @question.id), :class => "btn btn-success btn-lg", :style => "float: right;margin: 5px;"%>
+      <%= link_to "Answer!", new_question_answer_path(@question), :class => "btn btn-success btn-lg", :style => "float: right;margin: 5px;"%>
       </row>
       <% if !@comments.empty? %>
       <div class="container" style="width: 100%;">

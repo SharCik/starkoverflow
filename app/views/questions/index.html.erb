@@ -4,7 +4,12 @@
     	<div class="col-md-8" style="background-color: #f9f9f9;padding: 0px;">
     			<% flash.each do |key, value| %>
   					<div class="alert alert-<%= key %>" style="text-align: center;"><%= value %></div>
-				<% end %>
+					<% end %>
+					<div class="media-bady" style="padding-bottom:20px;text-align: center;">
+						<% @tags.each do |tag| %>
+							<span class="label label-default"><%= link_to tag.name, questions_path(:tag => tag.name) ,style:"color: #fff;" %></span>
+						<% end %>
+					</div>
     		<div class="new" style="background-color: #fff;height: 45px;">
     		<%= button_to "New question" ,new_question_path ,:class => "btn sharp", :method => :get  %></div>
     		<div class="main">

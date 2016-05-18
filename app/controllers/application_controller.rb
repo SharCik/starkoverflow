@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   private
 
+
   def count_rate(id)
     @question = Question.find(id)
     QuestionVote.all.where(question_id: @question.id, direction: true).size - QuestionVote.all.where(question_id: @question.id, direction: false).size 

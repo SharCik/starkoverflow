@@ -10,10 +10,19 @@ Rails.application.routes.draw do
   match '/rating',  to: 'question_votes#create',            via: 'get'
   match '/profile',  to: 'users#profile',            via: 'get'
   match '/make_a_star',  to: 'questions#make_a_star',            via: 'get'
+  match '/add_tag',  to: 'questions#add_tag',            via: 'get'
   resources :comments
   resources :users
-  resources :questions 
-  resources :answers 
+  resources :questions do 
+    resources :answers
+  end  
+
+  concern :question_tags do
+    resources :question_tags
+  end 
+  resources :questions, concerns: :question_tags
+  resources :tags, concerns: :question_tags
+
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
