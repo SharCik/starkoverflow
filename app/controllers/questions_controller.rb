@@ -4,8 +4,9 @@ class QuestionsController < ApplicationController
 
   def index
     @answers = Answer.all 
-    @views = View.all
-    @tags = Tag.all
+    @views   = View.all
+    @tags    = Tag.all
+
     if params[:search]
       @questions =Question.search(params[:search])
     elsif params[:tag]
@@ -28,11 +29,17 @@ class QuestionsController < ApplicationController
     @question.user_id = user.id
     @question.save! 
 
-    tags = (params[:tags]).sub(/[ ]/, ',').split(',').reject(&:empty?)
+    tags = (params[:tags]).sub(/[ ]/, ',').split(',').reject(&:empty?).each {|tag| tag.downcase!}
     tags.each do |tag|
-      tag = Tag.new(name: tag)
-      tag.save! if tag.valid? 
-      q = QuestionTag.create(question_id: @question.id, tag_id: tag.id)
+    double_tag = Tag.where(name: tag).first
+      
+      if double_tag == nil
+        tag = Tag.new(name: tag) 
+        tag.save! if tag.valid? 
+      else
+        tag = double_tag
+      end
+      QuestionTag.create(question_id: @question.id, tag_id: tag.id)
     end
 
     redirect_to root_path
@@ -40,18 +47,21 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answers = Answer.where(question_id: @question.id)
+    @answers  = Answer.where(question_id: @question.id)
     @comments = Comment.where(question_id: @question.id)
-    @users= User.all
-    stars = Star.all
-    s = []
-    stars.each {|st| s << st.id}
-    if s.include?(@question.id)
-      @star = Star.find(@question.id) 
-      @star = @star.answer_id
+    @users    = User.all
+    star      = Star.find_by(question_id: params[:id])
+    if star != nil
+      @star = star.answer_id 
+      @answer_with_star = Answer.find(@star)
     end
-    view = View.new(user_id: current_user.id, question_id: @question.id)
-    view.save! if view.valid?
+
+    if current_user != nil
+      view = View.new(user_id: current_user, question_id: @question.id)
+      view.save! if view.valid?
+    else
+      @current_user = nil
+    end
   end
 
   def edit
@@ -60,8 +70,8 @@ class QuestionsController < ApplicationController
 
   def make_a_star 
     question = Question.find(params[:quest])
-    answer = Answer.find(params[:ans])
-    star = Star.new(user_id: question.user_id, question_id: question.id, answer_id: answer.id)
+    answer   = Answer.find(params[:ans])
+    star     = Star.new(user_id: question.user_id, question_id: question.id, answer_id: answer.id)
     star.save! if star.valid? and star.user_id == current_user.id
 
     redirect_to question_path(question.id)
@@ -73,9 +83,6 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:description, :title)
   end 
-
-
-
 
 
 end

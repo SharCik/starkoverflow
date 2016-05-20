@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'comments/create'
 
   get 'users/new'
-
+  match '/rating_answer',  to: 'answer_votes#create',            via: 'get'
   match '/rating',  to: 'question_votes#create',            via: 'get'
   match '/profile',  to: 'users#profile',            via: 'get'
   match '/make_a_star',  to: 'questions#make_a_star',            via: 'get'

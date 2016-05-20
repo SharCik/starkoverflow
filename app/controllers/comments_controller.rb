@@ -1,16 +1,11 @@
 class CommentsController < ApplicationController
+  before_action :authenticate, only: :new
   @@question ||= nil
 
   def new
-		if signed_in?
-			@question = Question.find(params[:quest])
+			@question  = Question.find(params[:quest])
 			@@question = @question.id
-			@comment = Comment.new
-		else
-			flash[:alert] = "Sign in,please!"
-
-			redirect_to root_path
-		end
+			@comment   = Comment.new
   end
 
   def create

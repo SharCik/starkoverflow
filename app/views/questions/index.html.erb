@@ -13,11 +13,15 @@
     		<div class="new" style="background-color: #fff;height: 45px;">
     		<%= button_to "New question" ,new_question_path ,:class => "btn sharp", :method => :get  %></div>
     		<div class="main">
-				<table class="table table-striped table-hover ">
+				<table class="table table-striped table-hover" style="margin-bottom: 0px;">
 				  <% @questions.each do |question| %>
 				  <tbody>
 				    <tr style="height: 60px;">
+				    <% if @answers.where(question_id: question.id).count == 0 %>
 				      <td style="width: 10%;text-align:center;">
+				    <% else %>
+				    	<td style="width: 10%;text-align:center;border: double;border-color: #33b5e5">
+				    <% end %>
 				      	<p>Answers</p>
 				      	<h4><%= @answers.where(question_id: question.id).count %></h4>
 				      </td>

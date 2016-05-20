@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+	before_action :authenticate, only: :new
+
 	def new
 		@question = Question.find(params[:question_id])
 		@answer   = Answer.new

@@ -21,8 +21,8 @@
                 <% user = User.find(comment.user_id) %>
               <div class="col-sm-2" style="padding: 0px;">
                 <div class="thumbnail" style="height: 45px;width: 45px;">
-                <% if user.picture == nil %>
-                  <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                <% if !user.picture? %>
+                  <%= image_tag("no_avatar.png", size:"45x45") %>
                 <% else %>
                   <%= link_to image_tag(user.picture.mini.url) , user_path(:user => user.id) , class:"img-responsive user-photo"%>
                 <% end %>
@@ -53,15 +53,40 @@
         <% if @answers.empty? %>
           <h3>No posts yet</h3>
         <% else %>
+          <% if @answer_with_star != nil%>
+            <div class="container" style="width: 100%;padding: 0px;">
+              <div class="col-md-2" style="text-align: center;padding-top: 15px;">
+                <%= image_tag("star.png") %>
+                <div><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => @answer_with_star.id, :direct => true, :quest => @question.id), :method => :get %></div>
+                <div><h3 style="margin: 0px;"><%= count_rate_answer(@answer_with_star.id)%></h3></div>
+                <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => @answer_with_star.id, :direct => false, :quest => @question.id), :method => :get %></div>
+                </div>
+                <% user = User.find(@answer_with_star.user_id) %>
+                <div class="col-md-10 well"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= @answer_with_star.answer %></p>
+                </div>
+            </div>
+            <hr style="padding-top: 10px;border-top: 2px solid #33b5e5;">
+          <% end %>
           <% @answers.each do |ans|%>
-            <% if @question.user_id == current_user.id %>
-              <% quest = ans.question_id%>
-              <div class="col-md-2" style="text-align: center;opacity: 0.4;padding-top: 10px;"><%= link_to image_tag("star.png"), make_a_star_path(:quest => ans.question_id, :ans => ans.id) %></div>
+            <% if @question.user_id == @current_user %>
+              <div class="col-md-2" style="text-align: center;opacity: 0.4;padding-top: 15px;"><%= link_to image_tag("star.png"), make_a_star_path(:quest => ans.question_id, :ans => ans.id) %>
+                <div style="padding-top: 10px;"><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => ans.id, :direct => true, :quest => @question.id), :method => :get %></div>
+                <div>0</div>
+                <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => ans.id, :direct => false, :quest => @question.id), :method => :get %></div>
+              </div>
             <% else %>
-              <div class="col-md-2" style="text-align: center;padding-top: 15px;"><%= image_tag("star.png") if ans.id == @star %></div>
+              <div class="col-md-2" style="text-align: center;padding-top: 15px;">
+                <div><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => ans.id, :direct => true, :quest => @question.id), :method => :get %></div>
+                <div><h3 style="margin: 0px;"><%= count_rate_answer(ans.id)%></h4></div>
+                <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => ans.id, :direct => false, :quest => @question.id), :method => :get %></div>
+                </div>
             <% end %>
             <% user = User.find(ans.user_id) %>
-            <div class="col-md-10 well"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= ans.answer %></p></div>
+            <% if ans.id == @star %>
+              <div class="col-md-10 well" style="border-color:#33b5e5"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= ans.answer %></p></div>
+            <% else %>
+              <div class="col-md-10 well"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= ans.answer %></p></div>           
+            <% end %>
           <% end %>
         <% end %> 
       </div>

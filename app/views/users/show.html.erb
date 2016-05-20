@@ -7,7 +7,11 @@
 
 
         <div class="media">
-            <%= link_to image_tag(@user.picture.thumb.url) , "#"%>
+            <% if !@user.picture? %>
+              <%= image_tag("no_avatar.png", size:"80x80") %>
+            <% else %>
+              <%= link_to image_tag(@user.picture.mini.url) , user_path(:user => @user.id) , class:"img-responsive user-photo"%>
+            <% end %>
             <div class="media-body">
                 <h4><%=  @user.name %>     <small> <%= @user.country %></small></h4>
                 <h5><%= @user.job %></h5>
@@ -41,7 +45,7 @@
   <div class="row">
   <legend>Your questions:</legend>
   <% @questions.each do |question|%>
-    <div class="well" style="height: 100px;"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= question.description %></p></div>
+    <div class="well"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= question.description %></p></div>
   <% end %>
 </div>
   </div>
@@ -49,7 +53,7 @@
     <legend>Your answers:</legend>
     <% @answers.each do |answer|%>
       <% question = Question.find(answer.question_id) %>
-      <div class="well" style="height: 100px;"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= answer.answer %></p></div>
+      <div class="well"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= answer.answer %></p></div>
     <% end %>
   </div>
   <div class="col-md-2 col-md-2">
