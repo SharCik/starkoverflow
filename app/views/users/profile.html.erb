@@ -48,7 +48,7 @@
 
   <legend>Your questions:</legend>
   <% @questions.each do |question|%>
-    <div class="well"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= question.description %></p></div>
+    <div class="well"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= simple_format question.description %></p></div>
   <% end %>
 
   </div>
@@ -57,7 +57,7 @@
     <legend>Your answers:</legend>
     <% @answers.each do |answer|%>
       <% question = Question.find(answer.question_id) %>
-      <div class="well"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= answer.answer %></p></div>
+      <div class="well"><h4 style="color: green;"><%= link_to question.title, question_path(question) %></h4><p><%= simple_format answer.answer %></p></div>
     <% end %>
 
   </div>

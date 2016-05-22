@@ -3,9 +3,15 @@
     <div class="col-md-3"> </div>
     <div class="col-md-6" style="background-color: #f9f9f9;">
       <legend><%= @question.title %></legend>
-      <div class="well">
-        <p><%= @question.description %></p>
+      <div class="well" style="background: #fff;">
+        <p><%= simple_format @question.description %></p>
       </div>
+      <% if @question.code !=nil %>
+      <p>Code:</p>
+      <div>
+        <%= markdown(@question.code) %>
+      </div>
+      <% end %>
       <row >
       <%= link_to "Back to questions", root_path, :class => "btn btn-link", :style => "float: left;" %>
       <%= link_to "Comment", new_comment_path(:quest => @question.id), :class => "btn btn-primary", :style => "float: right;margin: 5px;"%>
@@ -62,7 +68,9 @@
                 <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => @answer_with_star.id, :direct => false, :quest => @question.id), :method => :get %></div>
                 </div>
                 <% user = User.find(@answer_with_star.user_id) %>
-                <div class="col-md-10 well"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= @answer_with_star.answer %></p>
+                <div class="col-md-10 well" style="background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p>
+                <p><%= simple_format @answer_with_star.answer %></p>
+                <p><%= markdown(@answer_with_star.code) if @answer_with_star.code != nil %></p>
                 </div>
             </div>
             <hr style="padding-top: 10px;border-top: 2px solid #33b5e5;">
@@ -83,9 +91,10 @@
             <% end %>
             <% user = User.find(ans.user_id) %>
             <% if ans.id == @star %>
-              <div class="col-md-10 well" style="border-color:#33b5e5"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= ans.answer %></p></div>
+              <div class="col-md-10 well" style="border-color:#33b5e5;background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p></div>
             <% else %>
-              <div class="col-md-10 well"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= ans.answer %></p></div>           
+              <div class="col-md-10 well" style="background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p>
+              <p><%= markdown(ans.code) if ans.code != nil %></p></div>           
             <% end %>
           <% end %>
         <% end %> 

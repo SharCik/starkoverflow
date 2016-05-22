@@ -25,7 +25,9 @@ class QuestionsController < ApplicationController
 
   def create 
     user      = current_user
+
     @question = Question.new(question_params)
+    @question.code = params[:code]
     @question.user_id = user.id
     @question.save! 
 
@@ -47,7 +49,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answers  = Answer.where(question_id: @question.id)
+    @answers  = Answer.where(question_id: @question.id).last(5).reverse
     @comments = Comment.where(question_id: @question.id)
     @users    = User.all
     star      = Star.find_by(question_id: params[:id])

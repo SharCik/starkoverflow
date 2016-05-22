@@ -8,7 +8,10 @@
     <legend>Your answer:</legend>
       <%= form_for([@question, @answer]) do |f| %>
 
-        <div class="form-group"><%= f.text_area :answer , size: "60x5" %></div>
+        <div class="form-group"><%= f.text_area :answer , size: "55x5" %></div>
+
+        <div class="form-group"><%= label_tag :code %></div>
+        <div class="form-group"><%= text_area_tag(:code, "", size: "55x5") %></div>
 
         <%= f.submit "Create!", class: "btn btn-large btn-primary" %>
         <%= link_to "Back", question_path(@question.id), {:class => "btn btn-link"} %>
