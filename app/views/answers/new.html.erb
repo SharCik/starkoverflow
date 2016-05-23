@@ -10,7 +10,13 @@
 
         <div class="form-group"><%= f.text_area :answer , size: "55x5" %></div>
 
-        <div class="form-group"><%= label_tag :code %></div>
+        <div class="container" style="width: 100%;padding: 0;margin: 0;"><div class="col-md-4 form-group" style="padding: 0;"><%= label_tag :code %></div>
+        <div class="col-md-2" style="padding: 0;"><p>Example:</p></div>
+        <div class="col-md-5">
+        <div class="well" style="width: 240px;padding: 5px;">
+        <p>``` <span style="color: green;">your_language</span></p>
+        <p><span style="color: red;">... Code ...</span></p>
+        <p style="margin: 0;">```</p></div></div></div>
         <div class="form-group"><%= text_area_tag(:code, "", size: "55x5") %></div>
 
         <%= f.submit "Create!", class: "btn btn-large btn-primary" %>

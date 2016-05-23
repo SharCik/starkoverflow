@@ -5,9 +5,12 @@
     			<% flash.each do |key, value| %>
   					<div class="alert alert-<%= key %>" style="text-align: center;"><%= value %></div>
 					<% end %>
-					<div class="media-bady" style="padding-bottom:20px;text-align: center;">
+					<div class="row" style="margin: 0;padding-bottom: 10px;text-align: center;background: #e9e9e9;">
 						<% @tags.each do |tag| %>
-							<span class="label label-default"><%= link_to tag.name, questions_path(:tag => tag.name) ,style:"color: #fff;" %></span>
+							<div class="col-md-1 col-centered" style="text-align: center;">
+								<span><%= link_to tag.name, questions_path(:tag => tag.name) ,style:"color: #33b5e5;" %></span>
+								<span class="badge"><%= count_questions_with_tag(tag) %></span>
+								</div>
 						<% end %>
 					</div>
     		<div class="new" style="background-color: #fff;height: 45px;">
@@ -38,8 +41,7 @@
 				      <p style="height: 30px;margin: 0;"><%= link_to image_tag("plus.png", border: 0, size:"20x20"), rating_path(:quest => question.id, :direct => true), :method => :get %></p>
 				      <p style="height: 30px;margin-bottom: 0;padding-top:10px;"><%= link_to image_tag("minus.png", border: 0, size:"20x20"), rating_path(:quest => question.id, :direct => false), :method => :get %></p>
 				      </td>
-				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px; text-align:center;"><h2>	<%= count_rate(question.id)%>
-				      </h2></td>
+				      <td style="width: 5%;"><h2 style="margin-top: 15px; margin-bottom: 15px; text-align:center;"><%= count_rate(question.id)%></h2></td>
 				    </tr>
 				  </tbody>
 				  <% end %>
