@@ -5,13 +5,13 @@ class QuestionsController < ApplicationController
   def index
     @answers = Answer.all 
     @views   = View.all
-    @tags    = Tag.all
+    @tags    = Tag.joins(:question_tags).all.distinct
 
     if params[:search]
       @questions =Question.search(params[:search])
     elsif params[:tag]
       tag = Tag.find_by(name: params[:tag])
-      @questions =Question.joins(:question_tags).where(:question_tags => {:tag_id => tag.id})
+      @questions = Question.joins(:question_tags).where(:question_tags => {:tag_id => tag.id})
     else
       @questions = Question.last('10').reverse 
     end
@@ -31,18 +31,7 @@ class QuestionsController < ApplicationController
     @question.user_id = user.id
     @question.save! 
 
-    tags = (params[:tags]).sub(/[ ]/, ',').split(',').reject(&:empty?).each {|tag| tag.downcase!}
-    tags.each do |tag|
-    double_tag = Tag.where(name: tag).first
-      
-      if double_tag == nil
-        tag = Tag.new(name: tag) 
-        tag.save! if tag.valid? 
-      else
-        tag = double_tag
-      end
-      QuestionTag.create(question_id: @question.id, tag_id: tag.id)
-    end
+    create_tag(params[:tags])
 
     redirect_to root_path
   end

@@ -16,11 +16,9 @@
                 <h4><%=  @user.name %>     <small> <%= @user.country %></small></h4>
                 <h5><%= @user.job %></a></h5>
                 <hr style="margin:8px auto">
-
-                <span class="label label-default">HTML5/CSS3</span>
-                <span class="label label-default">jQuery</span>
-                <span class="label label-info">CakePHP</span>
-                <span class="label label-default">Android</span>
+                <% @tags.each do |tag| %>
+                <span class="label label-info"><%= tag.name %></span>
+                <% end %>
             </div>
         </div>
 

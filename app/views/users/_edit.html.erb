@@ -25,15 +25,16 @@
           <%= f.label :job %><br>
           <%= f.text_field :job %>
         </div>
-        <div class="field">
-        <p style="font-weight:bold;">Tags:</p>
+        <div class="field" style="padding-top: 0px;">
+          <%= label_tag :tags %><br>
+          <%= text_area_tag :tags %>
         </div>
 
   </div>
 </row>
 <row style="padding: 0px; height: 25px;text-align: center;">
     <div class="actions" style="padding-top: 10px;">
-      <%= f.submit  %>
+      <%= f.submit %>
     </div>
   <% end %>
 </row>

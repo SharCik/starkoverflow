@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user  
+    @user = current_user 
+    create_tag(params[:tags])
       if @user.update!(user_params)
         flash[:notice] = "User updated."
         redirect_to profile_path
@@ -20,8 +21,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)    
+    @user = User.new(user_params)   
+
     if @user.save
+      create_tag(params[:tags])
       login @user
       redirect_to questions_path
     else
@@ -33,12 +36,14 @@ class UsersController < ApplicationController
   	@user = current_user
   	@questions = Question.where(user_id: @user.id).last('5').reverse
   	@answers = Answer.where(user_id: @user.id).last('5').reverse
+    @tags = Tag.joins(:user_tags).where(:user_tags => {:user_id => @user.id})
   end
 
   def show 
     @user = User.find(params[:user])
     @questions = Question.where(user_id: @user.id).last('5').reverse
     @answers = Answer.where(user_id: @user.id).last('5').reverse
+    @tags = Tag.joins(:user_tags).where(:user_tags => {:user_id => @user.id})
   end
 
   def user_params
