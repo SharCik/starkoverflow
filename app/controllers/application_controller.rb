@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
   end
 
   def create_tag(params)
+    @user = current_user
     tags = (params).gsub(/[ ]/, ',').split(',').reject(&:empty?).each {|tag| tag.downcase!}
     tags.each do |tag|
     double_tag = Tag.where(name: tag).first

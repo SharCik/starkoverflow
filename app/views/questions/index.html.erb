@@ -6,12 +6,14 @@
   					<div class="alert alert-<%= key %>" style="text-align: center;"><%= value %></div>
 					<% end %>
 					<div class="row" style="margin: 0;padding-bottom: 10px;text-align: center;background: #e9e9e9;">
+          <% if @tags != nil %>
 						<% @tags.each do |tag| %>
 							<div class="col-md-1 col-centered" style="text-align: center;">
 								<span><%= link_to tag.name, questions_path(:tag => tag.name) ,style:"color: #33b5e5;" %></span>
 								<span class="badge"><%= count_questions_with_tag(tag) %></span>
 								</div>
 						<% end %>
+          <% end %>
 					</div>
     		<div class="new" style="background-color: #fff;height: 45px;">
     		<%= button_to "New question" ,new_question_path ,:class => "btn sharp", :method => :get  %></div>
