@@ -10,7 +10,7 @@
             <% if !@user.picture? %>
               <%= image_tag("no_avatar.png", size:"80x80") %>
             <% else %>
-              <%= link_to image_tag(@user.picture.mini.url) , user_path(:user => @user.id) , class:"img-responsive user-photo"%>
+              <%= image_tag(@user.picture.thumb.url, class:"img-responsive user-photo") %>
             <% end %>
             <div class="media-body">
                 <h4><%=  @user.name %>     <small> <%= @user.country %></small></h4>
