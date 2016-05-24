@@ -31,7 +31,18 @@ class QuestionsController < ApplicationController
     @question.user_id = user.id
     @question.save! 
 
-    create_tag(params[:tags])
+    tags = (params[:tags]).gsub(/[ ]/, ',').split(',').reject(&:empty?).each {|tag| tag.downcase!}
+    tags.each do |tag|
+      double_tag = Tag.where(name: tag).first
+      
+      if double_tag == nil
+        tag = Tag.new(name: tag) 
+        tag.save! if tag.valid? 
+      else
+        tag = double_tag
+      end
+      QuestionTag.create(question_id: user.id, tag_id: tag.id)
+    end
 
     redirect_to root_path
   end
