@@ -1,0 +1,28 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-3"> </div>
+    <div class="col-md-6" style="background-color: #f9f9f9;">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>" style="text-align: center;"><%= value %></div>
+      <% end %>
+    <legend>Your answer:</legend>
+      <%= form_for([@question, @answer]) do |f| %>
+
+        <div class="form-group"><%= f.text_area :answer , size: "55x5" %></div>
+
+        <div class="container" style="width: 100%;padding: 0;margin: 0;"><div class="col-md-4 form-group" style="padding: 0;"><%= label_tag :code %></div>
+        <div class="col-md-2" style="padding: 0;"><p>Example:</p></div>
+        <div class="col-md-5">
+        <div class="well" style="width: 240px;padding: 5px;">
+        <p>``` <span style="color: green;">your_language</span></p>
+        <p><span style="color: red;">... Code ...</span></p>
+        <p style="margin: 0;">```</p></div></div></div>
+        <div class="form-group"><%= text_area_tag(:code, "", size: "55x5") %></div>
+
+        <%= f.submit "Create!", class: "btn btn-large btn-primary" %>
+        <%= link_to "Back", question_path(@question.id), {:class => "btn btn-link"} %>
+      <% end %>
+    </div>
+    <div class="col-md-3"> </div>
+  </div>
+</div>

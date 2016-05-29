@@ -1,0 +1,105 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-3"> </div>
+    <div class="col-md-6" style="background-color: #f9f9f9;">
+      <legend><%= @question.title %></legend>
+      <div class="well" style="background: #fff;">
+        <p><%= simple_format @question.description %></p>
+      </div>
+      <% if @question.code !=nil %>
+      <p>Code:</p>
+      <div>
+        <%= markdown(@question.code) %>
+      </div>
+      <% end %>
+      <row >
+      <%= link_to "Back to questions", root_path, :class => "btn btn-link", :style => "float: left;" %>
+      <%= link_to "Comment", new_comment_path(:quest => @question.id), :class => "btn btn-primary", :style => "float: right;margin: 5px;"%>
+      <%= link_to "Answer!", new_question_answer_path(@question), :class => "btn btn-success btn-lg", :style => "float: right;margin: 5px;"%>
+      </row>
+      <% if !@comments.empty? %>
+      <div class="container" style="width: 100%;">
+      <row>
+        <div class="col-md-10" style="float:right;padding: 0px;"> 
+          <div class="container" style="width: 100%; margin-top: 15px;">
+            <row>
+              <% @comments.each do |comment| %>
+                <% user = User.find(comment.user_id) %>
+              <div class="col-sm-2" style="padding: 0px;">
+                <div class="thumbnail" style="height: 45px;width: 45px;">
+                <% if !user.picture? %>
+                  <%= image_tag("no_avatar.png", size:"45x45") %>
+                <% else %>
+                  <%= link_to image_tag(user.picture.mini.url) , user_path(:user => user.id) , class:"img-responsive user-photo"%>
+                <% end %>
+                </div><!-- /thumbnail -->
+              </div><!-- /col-sm-1 -->
+              <div class="col-sm-10" style="padding: 0px;">
+                <div class="panel panel-default">
+                  <div class="panel-heading" style="padding: 5px 10px 5px 10px;">
+                    <strong><%=link_to user.name.capitalize,  user_path(:user => user.id) %></strong> <span class="text-muted" style="float: right;"><%="("+comment.created_at.strftime("%H:%M")+") " + comment.created_at.strftime("%d %b. %Y") %></span>
+                  </div>
+                  <div class="panel-body" style="padding: 5px 5px 5px 5px;">
+                    <%= comment.text %>
+                  </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+              </div><!-- /col-sm-5 -->
+              <% end %>
+            </row>
+          </div>
+        </div>
+      </row>
+      </div>
+      <% end %>
+      <% if @comments.empty? %>
+      <div class="container" style="margin-top: 30px;width: 100%;margin-top: 100px;">
+      <% else %>
+      <div class="container" style="margin-top: 30px;width: 100%;">
+      <% end %>
+        <% if @answers.empty? %>
+          <h3>No posts yet</h3>
+        <% else %>
+          <% if @answer_with_star != nil%>
+            <div class="container" style="width: 100%;padding: 0px;">
+              <div class="col-md-2" style="text-align: center;padding-top: 15px;">
+                <%= image_tag("star.png") %>
+                <div><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => @answer_with_star.id, :direct => true, :quest => @question.id), :method => :get %></div>
+                <div><h3 style="margin: 0px;"><%= count_rate_answer(@answer_with_star.id)%></h3></div>
+                <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => @answer_with_star.id, :direct => false, :quest => @question.id), :method => :get %></div>
+                </div>
+                <% user = User.find(@answer_with_star.user_id) %>
+                <div class="col-md-10 well" style="background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p>
+                <p><%= simple_format @answer_with_star.answer %></p>
+                <p><%= markdown(@answer_with_star.code) if @answer_with_star.code != nil %></p>
+                </div>
+            </div>
+            <hr style="padding-top: 10px;border-top: 2px solid #33b5e5;">
+          <% end %>
+          <% @answers.each do |ans|%>
+            <% if @question.user_id == @current_user.id %>
+              <div class="col-md-2" style="text-align: center;opacity: 0.4;padding-top: 15px;"><%= link_to image_tag("star.png"), make_a_star_path(:quest => ans.question_id, :ans => ans.id) %>
+                <div style="padding-top: 10px;"><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => ans.id, :direct => true, :quest => @question.id), :method => :get %></div>
+                <div>0</div>
+                <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => ans.id, :direct => false, :quest => @question.id), :method => :get %></div>
+              </div>
+            <% else %>
+              <div class="col-md-2" style="text-align: center;padding-top: 15px;">
+                <div><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => ans.id, :direct => true, :quest => @question.id), :method => :get %></div>
+                <div><h3 style="margin: 0px;"><%= count_rate_answer(ans.id)%></h4></div>
+                <div><%= link_to image_tag("arraw_down.png"), rating_answer_path(:ans => ans.id, :direct => false, :quest => @question.id), :method => :get %></div>
+                </div>
+            <% end %>
+            <% user = User.find(ans.user_id) %>
+            <% if ans.id == @star %>
+              <div class="col-md-10 well" style="border-color:#33b5e5;background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p></div>
+            <% else %>
+              <div class="col-md-10 well" style="background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p>
+              <p><%= markdown(ans.code) if ans.code != nil %></p></div>           
+            <% end %>
+          <% end %>
+        <% end %> 
+      </div>
+    </div>
+    <div class="col-md-3"> </div>
+  </div>
+</div>

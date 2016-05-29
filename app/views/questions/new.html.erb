@@ -1,0 +1,32 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-3"> </div>
+    <div class="col-md-6" style="background-color: #f9f9f9;">
+    <legend>Create new question</legend>
+      <%= form_for(@question) do |f| %>
+
+        <div class="form-group"><%= f.label :title %></div>
+        <div class="form-group"><%= f.text_area :title, size: "55x1" %></div>
+
+        <div class="form-group"><%= f.label :description %></div>
+        <div class="form-group"><%= f.text_area :description , size: "55x5" %></div>
+
+        <div class="container" style="width: 100%;padding: 0;margin: 0;"><div class="col-md-4 form-group" style="padding: 0;"><%= label_tag :code %></div>
+        <div class="col-md-2" style="padding: 0;"><p>Example:</p></div>
+        <div class="col-md-5">
+        <div class="well" style="width: 240px;padding: 5px;">
+        <p>``` <span style="color: green;">your_language</span></p>
+        <p><span style="color: red;">... Code ...</span></p>
+        <p style="margin: 0;">```</p></div></div></div>
+        <div class="form-group"><%= text_area_tag(:code, "", size: "55x5") %></div>
+
+        <div class="form-group"><%= label_tag :tags %></div>
+        <div class="form-group"><%= text_area_tag(:tags, "", size: "35x1") %></div>
+
+        <%= f.submit "Create!", class: "btn btn-large btn-primary" %>
+        <%= link_to "Back", questions_path, {:class => "btn btn-link"} %>
+      <% end %>
+    </div>
+    <div class="col-md-3"> </div>
+  </div>
+</div>

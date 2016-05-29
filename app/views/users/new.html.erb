@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-4 col-md-4">
+    <div></div>
+  </div>
+  <div class="col-md-4">
+    <legend>Sign up</legend>
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages' %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, autofocus: true, class: "form-control" %></div>
+
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "form-control" %></div>
+
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %></div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %></div>
+
+        <div class="form-group"><%= label_tag :tags %></div>
+        <div class="form-group"><%= text_area_tag(:tags, "", size: "35x1") %></div>
+
+        <div><%= f.submit "Sign up", class: "btn btn-success" %>
+        <%= link_to "Sign in", "#" , class: "btn btn-link" %></div>
+    <% end %>
+    <hr>
+  </div>
+  <div class="col-md-4 col-md-4">
+    <div></div>
+  </div>
+</div>

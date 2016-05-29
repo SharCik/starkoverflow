@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "Starkoverflow", questions_path, class: "navbar-brand"%>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+        <%= form_tag questions_path, :method => "get" do %>
+          <%= text_field_tag(:search)%>
+          <%= submit_tag "Search", :name => nil %>
+        <% end %>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+      <% if !signed_in? %>
+        <li><%= link_to "Sign in", signin_path %></li>
+        <li><%= link_to "Sign up!", new_user_path %></li>
+      <% else %>
+        <li><%= link_to "Profile, #{current_user.name}", profile_path %></li>
+        <li><%= link_to "Sign out", signout_path , method: "delete" %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,16 @@
+<div class="container" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-3"> </div>
+    <div class="col-md-6" style="background-color: #f9f9f9;">
+    <legend>Your comment:</legend>
+      <%= form_for(@comment) do |f| %>
+
+        <div class="form-group"><%= f.text_area :text , size: "55x3" %></div>
+
+        <%= f.submit "Create!", class: "btn btn-large btn-primary" %>
+        <%= link_to "Back", question_path(@question.id), {:class => "btn btn-link"} %>
+      <% end %>
+    </div>
+    <div class="col-md-3"> </div>
+  </div>
+</div>
