@@ -91,7 +91,7 @@
             <% end %>
             <% user = User.find(ans.user_id) %>
             <% if ans.id == @star %>
-              <div class="col-md-10 well" style="border-color:#33b5e5;background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p></div>
+              <div class="col-md-10 well" style="border-color:#33b5e5;background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p><p><%= markdown(ans.code) if ans.code != nil %></p></div>  </div>
             <% else %>
               <div class="col-md-10 well" style="background-color: #fff;"><p><%=link_to user.name.capitalize, user_path(:user => user.id) %></p><p><%= simple_format ans.answer %></p>
               <p><%= markdown(ans.code) if ans.code != nil %></p></div>           
