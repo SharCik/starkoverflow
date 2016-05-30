@@ -48,6 +48,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @user_id  = current_user.id if current_user != nil
     @question = Question.find(params[:id])
     @answers  = Answer.where(question_id: @question.id).last(5).reverse
     @comments = Comment.where(question_id: @question.id)

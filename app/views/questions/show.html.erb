@@ -76,7 +76,7 @@
             <hr style="padding-top: 10px;border-top: 2px solid #33b5e5;">
           <% end %>
           <% @answers.each do |ans|%>
-            <% if @question.user_id == @current_user.id %>
+            <% if @question.user_id == @user_id %>
               <div class="col-md-2" style="text-align: center;opacity: 0.4;padding-top: 15px;"><%= link_to image_tag("star.png"), make_a_star_path(:quest => ans.question_id, :ans => ans.id) %>
                 <div style="padding-top: 10px;"><%= link_to image_tag("arraw_up.png"), rating_answer_path(:ans => ans.id, :direct => true, :quest => @question.id), :method => :get %></div>
                 <div>0</div>
